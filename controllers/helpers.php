@@ -6,16 +6,6 @@ require_once basename($_SERVER['PHP_SELF']) == 'index.php' ? 'my-config.php' : '
 /**
  * 
  */
-function createCookieLogin(){
-
-    setcookie("login", uniqid(uniqid().'x'));
-
-}
-
-
-/**
- * 
- */
 function upload() : string
 {
     extract($_FILES["fileToUpload"]);
