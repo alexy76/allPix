@@ -6,6 +6,16 @@ require_once basename($_SERVER['PHP_SELF']) == 'index.php' ? 'my-config.php' : '
 /**
  * 
  */
+function createCookieLogin(){
+
+    setcookie("login", uniqid(uniqid().'x'));
+
+}
+
+
+/**
+ * 
+ */
 function upload() : string
 {
     extract($_FILES["fileToUpload"]);
@@ -19,14 +29,8 @@ function upload() : string
 
     $extension = explode('/', getimagesize($tmp_name)['mime']);
 
-    if(move_uploaded_file($tmp_name, $_SESSION['user']['pathHome'] . "/" . uniqid() . '.' . end($extension)))
-    {
-        return "L'image a bien été uploadée";
-    }
-    else
-    {
-        return "Erreur de transfert";
-    }
+    return move_uploaded_file($tmp_name, $_SESSION['user']['pathHome'] . "/" . uniqid() . '.' . end($extension)) ? "L'image a bien été uploadée" : "Erreur de transfert";
+
 }
 
 
@@ -51,7 +55,6 @@ function getInfoPath(string $dir) : void
                                 'sizeH' => round(($size / 1024) / 1024, 2)
     ];
 }
-
 
 
 /**

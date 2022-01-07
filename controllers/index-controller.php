@@ -7,7 +7,7 @@ noAllowed(basename($_SERVER['PHP_SELF']));
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['connection'])){
 
-    
+
     if(array_key_exists($_POST['login'], $users)){
 
         if(password_verify($_POST['password'], $users[$_POST['login']]['password'])){
