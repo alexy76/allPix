@@ -11,12 +11,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['connection'])){
 
         if(password_verify($_POST['password'], $users[$_POST['login']]['password'])){
 
+            extract($users[$_POST['login']]);
+
             $_SESSION['user'] = [
-                'login' => $users[$_POST['login']]['login'],
-                'formule' => $users[$_POST['login']]['formule'],
-                'quotaH' => $users[$_POST['login']]['quota'],
-                'quotaM' => $users[$_POST['login']]['quota'] * 1024**2,
-                'pathHome' => '../img/' . $_POST['login'] . '/'
+                'login' => $login,
+                'formule' => $formule,
+                'quotaH' => $quota,
+                'quotaM' => $quota * 1024**2,
+                'pathHome' => '../img/' . $login . '/'
             ];
 
             header("Location: views/dashboard.php");
