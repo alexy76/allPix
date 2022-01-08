@@ -6,7 +6,7 @@ require_once basename($_SERVER['PHP_SELF']) == 'index.php' ? 'my-config.php' : '
 function scanUserDir()
 {
     return array_filter(scandir($_SESSION['user']['pathHome']), function($f){
-        if (is_file($_SESSION['user']['pathHome'] . $f) && $f != '.' && $f != '..')         return true;
+        if (is_file($_SESSION['user']['pathHome'] . $f))         return true;
     });
 }
 
