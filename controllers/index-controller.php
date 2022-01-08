@@ -1,8 +1,7 @@
 <?php
 
 require_once 'controllers/helpers.php';
-noAllowed(basename($_SERVER['PHP_SELF']));
-
+noAllowed();
 
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['connection'])){
@@ -19,8 +18,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['connection'])){
                 'quotaM' => $users[$_POST['login']]['quota'] * 1024**2,
                 'pathHome' => '../img/' . $_POST['login'] . '/'
             ];
-
-            getInfoPath('img/' . $_SESSION['user']['login']);
 
             header("Location: views/dashboard.php");
             exit();

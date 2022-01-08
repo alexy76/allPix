@@ -1,10 +1,10 @@
 <?php
 
 require '../controllers/helpers.php';
-noAllowed(basename($_SERVER['PHP_SELF']));
+noAllowed();
 
 
-$files = scandir($_SESSION['user']['pathHome']);
+$files = scanUserDir();
 
 
 ?>

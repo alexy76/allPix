@@ -2,10 +2,32 @@
 
 require_once basename($_SERVER['PHP_SELF']) == 'index.php' ? 'my-config.php' : '../my-config.php';
 
+/** */
+function scanUserDir()
+{
+    return array_filter(scandir($_SESSION['user']['pathHome']), function($f){
+        if (is_file($_SESSION['user']['pathHome'] . $f) && $f != '.' && $f != '..')         return true;
+    });
+}
 
-/**
- * 
- */
+
+/** */
+function getInfoPath() : void
+{
+    $arrayFiles = scanUserDir();
+
+    $size = array_sum(array_map(function($f){   return filesize($_SESSION['user']['pathHome'] . $f);    }, $arrayFiles));
+    $count = count($arrayFiles);
+
+    $_SESSION['infoPath'] = [
+                                'sizeH' => round($size / 1024**2, 2), 
+                                'nbFiles' => $count, 
+                                'sizeM' => $size
+    ];
+}
+
+
+/** */
 function upload() : string
 {
     extract($_FILES["fileToUpload"]);
@@ -18,48 +40,23 @@ function upload() : string
 
 
     $extension = explode('/', getimagesize($tmp_name)['mime']);
+    $newFile = $_SESSION['user']['pathHome'] . "/" . uniqid() . '.' . end($extension);
 
-    return move_uploaded_file($tmp_name, $_SESSION['user']['pathHome'] . "/" . uniqid() . '.' . end($extension)) ? "L'image a bien été uploadée" : "Erreur de transfert";
 
+    return move_uploaded_file($tmp_name, $newFile) ? "L'image a bien été uploadée" : "Erreur de transfert";
 }
 
 
-/**
- * 
- */
-function getInfoPath(string $dir) : void
-{
-    $size = 0; $count = 0;
-
-    foreach (scandir($dir) as $file) {
-
-        if (is_file($dir . $file) && $file != '.' && $file != '..') {
-            $size += filesize($dir . $file);
-            $count++;
-        }
-    }
-
-    $_SESSION['infoPath'] = [   
-                                'nbFiles' => $count, 
-                                'sizeM' => $size, 
-                                'sizeH' => round(($size / 1024) / 1024, 2)
-    ];
-}
-
-
-/**
- * 
- */
-function noAllowed(string $uri) : void
+/** */
+function noAllowed() : void
 {
     if (session_status() == PHP_SESSION_NONE) session_start();
 
     if (!isset($_SESSION['user'])) {
-        if(in_array($uri, NO_LOGIN)) header('Location: ../views/no-allowed.php');
+        if(in_array(basename($_SERVER['PHP_SELF']), NO_LOGIN)) header('Location: ../views/no-allowed.php');
     }
     else{
-        if(in_array($uri, LOGIN)) header('Location: views/dashboard.php');
+        if(in_array(basename($_SERVER['PHP_SELF']), LOGIN)) header('Location: views/dashboard.php');
     }
 }
-
 ?>
