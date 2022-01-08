@@ -27,32 +27,32 @@ require '../controllers/gallery-controller.php';
 
     <div class="row" data-masonry='{"percentPosition": true }'>
 
+      <?php foreach ($files as $value): ?>
 
-      <?php
+        <div class='col-lg-3 col-4 mb-3'>
+          <div>
+            <a data-lightbox='roadtrip' href='../img/<?= $_SESSION["user"]["login"] ?>/<?= $value ?>'>
+              <img class='img-fluid' src='../img/<?= $_SESSION["user"]["login"] ?>/<?= $value ?>'>
+            </a>
+          </div>
+        </div>
 
-      foreach ($files as $value) {
-        if ($value != '.' && $value != '..') { 
-          echo "<div class='col-lg-3 col-4 mb-3'><div><a data-lightbox='roadtrip' href='../img/" . $_SESSION['user']['login'] . "/" . $value . "'><img class='img-fluid' src='../img/" . $_SESSION['user']['login'] . "/" . $value . "'></a></div></div>";
-        }
-      }
-
-      ?>
-
+        <?php endforeach; ?>
     </div>
 
 
-    <p class="fixed-bottom bg-white m-0 fw-bold border-top border-danger"><a href="../views/dashboard.php" class="text-bg">Dashboard</a></p>
+    <p class=" fixed-bottom bg-white m-0 fw-bold border-top border-danger"><a href="../views/dashboard.php" class="text-bg">Dashboard</a></p>
 
 
-  </div>
+          </div>
 
 
 
-  <script src="../assets/script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-  <script src="../assets/lightbox-plus-jquery.js"></script>
+          <script src="../assets/script.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+          <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+          <script src="../assets/lightbox-plus-jquery.js"></script>
 </body>
 
 </html>
